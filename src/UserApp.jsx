@@ -3,6 +3,7 @@ import Pokemons from './pokemons/Pokemons'
 import Trainers from './trainers/Trainers'
 import Home from './Home'
 import * as AuthService from './auth/AuthService'
+import { Button } from 'react-bootstrap'
 
 import {
     BrowserRouter,
@@ -40,7 +41,13 @@ const UserApp = () => {
             </nav>
 
             <div>Bienvenido {AuthService.getUser()}</div>
-            <button onClick={handleLogout}>logout</button>
+            
+            <br></br>
+
+            <Button variant="danger" onClick={handleLogout}>logout</Button>
+
+            <br></br>
+            <br></br>
 
             <Switch>
                 <Route path="/pokemons">
