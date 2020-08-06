@@ -7,14 +7,16 @@ const Pokemons = () => {
 
     const [pokemons, setPokemons] = useState([])
 
-    // (viejo) componentDidMount === (nuevo) useEffect
     useEffect(() => {
         getPokemonsAfterToRender()
     }, [])
 
     const getPokemonsAfterToRender = async (filtro) => {
         setCargando(true)
-        setErrorGeneral("")
+        setErrorGeneral({
+            Existe: false,
+            msg: ""
+        })
 
         try {
             const pokemonsResponse = await getPokemons(filtro)
@@ -63,7 +65,7 @@ const Pokemons = () => {
 
             <br></br>
 
-            {!Cargando && !ErrorGeneral && pokemons[0] && <Table striped bordered hover>
+            {!Cargando && !ErrorGeneral.Existe && pokemons[0] && <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>Numero</th>
