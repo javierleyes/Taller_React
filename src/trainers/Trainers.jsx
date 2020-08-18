@@ -1,17 +1,35 @@
 import React, { useState, useEffect } from 'react'
-import { Table } from 'react-bootstrap'
+import { Table, Alert } from 'react-bootstrap'
 import * as TrainersService from './TrainersService'
 import { getPokemons } from '../pokemons/PokemonService'
 import ButtonModal from './ButtonModal'
+import { useSelector, useDispatch } from 'react-redux'
+import { clear } from './stateManager/alertActions'
 
+//use algo son hooks, se usan en componentes funcionales
+// componentDidMount() son metodos del ciclo de vida
+// son excluyentes
 const Trainers = () => {
 
     const [trainers, setTrainers] = useState([])
     const [pokemons, setPokemons] = useState([])
 
+    const alert = useSelector((state) => state)
+    const dispatch = useDispatch()
+
     useEffect(() => {
         getTrainersAfterToRender()
-    }, [])
+        return () => dispatch(clear())
+    }, [dispatch])
+
+    // React viejo
+    // componenDidMount() {
+    // getTrainersAfterToRender()
+    // }
+
+    // componenWillUnmount() {
+    // dispatch(clear())
+    // }
 
     useEffect(() => {
         getPokemonsAfterToRender()
@@ -64,6 +82,7 @@ const Trainers = () => {
     return (
         <>
             <h1>Trainers</h1>
+            {alert.show && <Alert variant={alert.type}>{alert.msg}</Alert>}
             <ButtonModal action={agregar} pokemons={pokemons} variant="success">Agregar</ButtonModal>
             <Table striped bordered hover>
                 <thead>

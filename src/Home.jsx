@@ -1,9 +1,11 @@
 import React from 'react'
+import banner from './Wallpaper.jpg'
+import { Image } from 'react-bootstrap'
 
 const Home = () => {
     return (
         <>
-            <div></div>
+            <Image fluid src={banner}></Image>
         </>
     )
 }
